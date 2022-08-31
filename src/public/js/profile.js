@@ -41,8 +41,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 4000);
         }
         else {
-            divError.innerHTML = "";
-            divError.className = "";
+            divError.innerHTML = `
+                <p class="m-0">Datos actualizados correctamente</p>
+            `;
+            divError.className = "alert alert-success py-3";
+            window.scrollTo(0, 0);
+            setTimeout(() => {
+                divError.innerHTML = "";
+                divError.className = "";
+            }, 4000);
+            btnAction.innerHTML = "Actualizar datos";
+            btnAction.disabled = false;
+            form.querySelector("#password").value = '';
+            form.querySelector("#password2").value = '';
             // window.location.href = "/login";
         }
     });
