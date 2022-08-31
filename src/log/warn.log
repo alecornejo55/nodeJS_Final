@@ -21,3 +21,4 @@
 2022-08-31T13:20:36.784Z [[33mwarn[39m]: [33mError al obtener: chat validation failed: author.id: Cast to ObjectId failed for value "" (type string) at path "author.id" because of "BSONTypeError"[39m
 2022-08-31T13:42:07.738Z [[33mwarn[39m]: [33mError al obtener: chat validation failed: author.id: Cast to ObjectId failed for value "" (type string) at path "author.id" because of "BSONTypeError"[39m
 2022-08-31T19:32:57.543Z [[33mwarn[39m]: [33mError al obtener: chat validation failed: message: Path `message` is required.[39m
+2022-08-31T20:37:54.864Z [[33mwarn[39m]: [33mError al obtener: product validation failed: category: Path `category` is required.[39m

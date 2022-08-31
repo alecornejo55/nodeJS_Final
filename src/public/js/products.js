@@ -30,7 +30,8 @@ const saveNew = async (formData) => {
         code: formData.get('code'),
         price: formData.get('price'),
         stock: formData.get('stock'),
-        image: formData.get('image')
+        image: formData.get('image'),
+        category: formData.get('category'),
     };
     // console.log(newProducto);
     try {

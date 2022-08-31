@@ -43,6 +43,12 @@
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-floating theme-form-floating log-in-form">
+                                        <input type="text" class="form-control" id="category" name="category" placeholder="Código" required>
+                                        <label for="category">Categoría</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
                                         <input type="text" class="form-control" id="code" name="code" placeholder="Código" required>
                                         <label for="code">Código</label>
                                     </div>
@@ -91,7 +97,7 @@
                                             <div class="product-detail">
                                                 <ul>
                                                     <li class="name"><a href="#">{{name}}</a></li>
-                                                    <!--<li class="text-content"><span class="text-title">Categoría:</span> cat</li>-->
+                                                    <li class="text-content"><span class="text-title">Categoría:</span> {{category}}</li>
                                                     <li class="text-content"><span class="text-title">Código:</span> {{code}}</li>
                                                 </ul>
                                             </div>

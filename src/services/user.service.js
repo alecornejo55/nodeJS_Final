@@ -10,7 +10,11 @@ class UserService {
         this.userDao = DaoUser;
     }
     save = async (user) => {
-        return await this.userDao.save(user);
+        const data = await this.userDao.save(user);
+        if(data.success === false ){
+            throw Error(data.message);
+        }
+        return data;
     }
     getAll = async () => {
         return await this.userDao.getAll();

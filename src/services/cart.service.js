@@ -13,7 +13,11 @@ class CartService {
         return await this.cartDao.getAll();
     }
     save = async (product) => {
-        return await this.cartDao.save(product);
+        const data = await this.cartDao.save(product);
+        if(data.success === false ){
+            throw Error(data.message);
+        }
+        return data;
     }
     getById = async (id) => {
         return await this.cartDao.getById(id);
