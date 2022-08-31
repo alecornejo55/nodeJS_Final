@@ -10,16 +10,20 @@ router.get('/login', checkAuth, public.login);
 
 router.get('/signup', checkAuth, public.signup);
 
-router.get('/dashboard', checkLogout, public.dashboard);
+router.get('/productos', checkLogout, public.products);
 
 router.get('/logout', checkLogout, public.logout);
 
-router.get('/productos', checkLogout, checkAdmin, public.products);
+router.get('/productos-admin', checkLogout, checkAdmin, public.productsAdmin);
 
-router.get('/productos/detalle/:id', checkLogout, checkAdmin, public.productDetail);
+router.get('/productos/detalle/:id', checkLogout, public.productDetail);
 
 router.get('/orden-enviada', checkLogout, public.orderSuccess);
 
 router.get('/carrito', checkLogout, public.cartInfo);
+
+router.get('/perfil', checkLogout, public.userProfile);
+
+router.get('/chat', checkLogout, public.chatBroadcast);
 
 module.exports = router;

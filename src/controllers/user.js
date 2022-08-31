@@ -8,6 +8,8 @@ const cart = new CartService();
 const { createLogger } = require('../config/logger.config');
 const logger = createLogger('PROD');
 
+const { createHash } = require('../utils/auth');
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'src/public/uploads');
@@ -61,7 +63,41 @@ const failedSignup = (req, res) => {
         message: req.flash('signupMessage')
     });
 }
+const updateUser = async(req, res) => {
+    const { username, name, password, password2, address, age, phone } = req.body;
+    // console.log(username, name, password, password2, address, age, phone);
+    try {
+        if(password !== password2){
+            throw new Error(req.flash('updateMessage', "Las contraseñas no coinciden"));
+        }
+        const data = {
+            username,
+            name,
+            address,
+            age,
+            phone,
+        }
+        if(password != ''){
+            data.password = createHash(password);
+        }
+        if(req.file){
+            data.avatar = req.file.filename
+        }
+        
+        const update = await user.updateById(req.user._id, data);
+        // console.log(update);
+        res.status(200).json({
+            status: 'success',
+            message: "ok",
+        });
+    } catch (error) {
+        res.status(401).json({
+            status: 'error',
+            message: req.flash('updateMessage')
+        });
+    }
+};
 
 module.exports = {
-    createUser, uploadAvatar, failedSignup, login, failedLogin
+    createUser, uploadAvatar, failedSignup, login, failedLogin, updateUser
 }

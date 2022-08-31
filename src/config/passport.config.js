@@ -2,6 +2,7 @@ const passport = require("passport")
 const local = require("passport-local");
 const CartService = require('../services/cart.service');
 const cart = new CartService();
+const fs = require('fs')
 
 const User = require('../models/user');
 const LocalStrategy = local.Strategy;
@@ -31,7 +32,7 @@ const initializePassport = () => {
                     }
                     try {
                         let result = await User.create(newUser);
-                        const infoMail = await sendMailSignup({ user: newUser});
+                        const infoMail = await sendMailSignup({ user: newUser });
                         // logger.info(infoMail);
                         return done(null, result);
                     } catch (error) {
@@ -73,6 +74,10 @@ const initializePassport = () => {
             if(!err){
                 const userCart = await cart.getUserCart(id);
                 user.cart = userCart;
+                const path = `./src/public/uploads/${user.avatar}`;
+                if(!fs.existsSync(path)){
+                    user.avatar = "user-default.png";
+                }
             }
             done(err, user);
         });

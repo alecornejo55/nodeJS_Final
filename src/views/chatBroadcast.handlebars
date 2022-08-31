@@ -1,0 +1,209 @@
+<style>
+    body {
+        margin: 0;
+        padding-bottom: 3rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    #chatForm {
+        background: rgba(0, 0, 0, 0.15);
+        padding: 0.25rem;
+        /*position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;*/
+        display: flex;
+        height: 3rem;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+    }
+
+    #message {
+        border: none;
+        padding: 0 1rem;
+        flex-grow: 1;
+        border-radius: 2rem;
+        margin: 0.25rem;
+    }
+
+    #message:focus {
+        outline: none;
+    }
+
+    #chatForm>button {
+        /*background: #333;*/
+        border: none;
+        padding: 0 1rem;
+        margin: 0.25rem;
+        border-radius: 3px;
+        outline: none;
+        /*color: #fff;*/
+    }
+
+    #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #messages>li {
+        padding: 0.5rem 1rem;
+    }
+
+    #messages>li:nth-child(odd) {
+        background: #efefef;
+    }
+    .btn-animation:hover i {
+     -webkit-transform: initial;
+     transform: initial;
+    }
+</style>
+<!-- Loader Start -->
+{{> fullpage-loader }}
+<!-- Loader End -->
+
+<!-- Header Start -->
+{{> header }}
+<!-- Header End -->
+
+<!-- Breadcrumb Section Start -->
+{{> breadcrumb}}
+<!-- Breadcrumb Section End -->
+
+<!-- Cart Section Start -->
+<section class="cart-section section-b-space">
+    <div class="container-fluid-lg">
+        <div class="row g-sm-5 g-3">
+            <div class="col-xxl-3">
+                <div class="summery-box p-sticky">
+                    <div class="summery-header">
+                        <h3 id="formTitle">Chat general</h3>
+                    </div>
+
+                    <div class="summery-contain">
+                        <div class="coupon-cart">
+                            <div id="messages" style="max-height: 15rem; overflow-y: auto;"></div>
+                            <form class="g-4 mt-3" id="chatForm">
+                                <input id="message" name="message" autocomplete="off" placeholder="Enviar mensaje..." />
+                                <button class="btn-animation">
+                                    <i class="iconly-Send icli fly-cate"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Cart Section End -->
+
+<!-- Footer Section Start -->
+{{> footer}}
+<!-- Footer Section End -->
+
+<!-- Tap to top start -->
+{{> back-to-top}}
+<!-- Tap to top end -->
+
+<!-- Bg overlay Start -->
+<div class="bg-overlay"></div>
+<!-- Bg overlay End -->
+<!-- latest jquery-->
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+
+<!-- jquery ui-->
+<script src="/assets/js/jquery-ui.min.js"></script>
+
+<!-- Handlebars -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+<!-- Bootstrap js-->
+<script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/bootstrap/bootstrap-notify.min.js"></script>
+<script src="/assets/js/bootstrap/popper.min.js"></script>
+
+<!-- feather icon js-->
+<script src="/assets/js/feather/feather.min.js"></script>
+<script src="/assets/js/feather/feather-icon.js"></script>
+
+<!-- Lazyload Js -->
+<script src="/assets/js/lazysizes.min.js"></script>
+
+<!-- Slick js-->
+<script src="/assets/js/slick/slick.js"></script>
+<script src="/assets/js/slick/custom_slick.js"></script>
+
+<!-- Quantity js -->
+<script src="/assets/js/quantity.js"></script>
+
+<!-- script js -->
+<script src="/assets/js/script.js"></script>
+<!-- Custom js -->
+<script src="/socket.io/socket.io.js"></script>
+{{!-- <script src="/js/chat.js"></script> --}}
+<script>
+const socket = io();
+const chatForm = document.querySelector('#chatForm');
+
+Handlebars.registerHelper("formatDate", function (datetime, format) {
+    return new Date(datetime).toLocaleString("es-AR");
+});
+
+const renderChat = async (data) => {
+    const template = await fetch('/templates/chat.hbs');
+    const textTemplate = await template.text();
+	const functionTemplate = Handlebars.compile(textTemplate);
+	const html = await functionTemplate({ chat: data });
+    const objDiv = document.getElementById("messages");
+	objDiv.innerHTML = html;
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+
+chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(chatForm);
+    if(formData.get('message') == ''){
+        return;
+    }
+    const newMessage = {
+        author: {
+            id: "{{user.id}}",
+            username: "{{user.username}}",
+            name: "{{user.name}}",
+            phone: "{{user.phone}}",
+            admin: "{{user.admin}}",
+            avatar: "{{user.avatar}}",
+        },
+        message: formData.get('message'),
+        // dateTime: new Date().toLocaleString("es-AR"),
+    };
+    console.log(newMessage);
+    try {
+        socket.emit('new-message', newMessage);
+        document.querySelector("#message").value = '';
+    }
+    catch (error) {
+        Swal.fire(
+            'Ha ocurrido un error',
+            `El producto no ha sido envíado: ${error.message}`,
+            'error'
+        );
+        console.warn(error);
+    }
+});
+
+socket.on('messages', (data) => {
+    console.log(data);
+    renderChat(data);
+});
+const init = async () => {
+    const response = await fetch('/api/chat');
+    const data = await response.json();
+    if(data.success){
+        renderChat(data.data);
+    }
+    console.log(data);
+}
+init();
+</script>

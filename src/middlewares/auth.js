@@ -15,7 +15,7 @@ const checkAdmin = (req, res, next) => {
 
 const checkAuth = (req, res, next) => {
     if (req.user) {
-        return res.redirect('/dashboard');
+        return res.redirect('/productos');
     }
     next();
 }

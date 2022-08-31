@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             divError.innerHTML = "";
             divError.className = "";
-            window.location.href = "/dashboard";
+            window.location.href = "/productos";
         }
     });
 });

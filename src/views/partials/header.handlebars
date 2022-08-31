@@ -29,7 +29,7 @@
                                             </li>
                                             {{#if user.admin}}
                                             <li class="nav-item">
-                                                <a class="nav-link nav-link-2" href="/productos">Productos</a>
+                                                <a class="nav-link nav-link-2" href="/productos-admin">Productos</a>
                                             </li>
                                             {{/if}}
                                         </ul>
@@ -40,7 +40,7 @@
 
                         <div class="rightside-box">
                             <ul class="right-side-menu">
-                                <li class="right-side">
+                                <li class="right-side d-none">
                                     <div class="delivery-login-box">
                                         <div class="delivery-icon">
                                             <div class="search-box">
@@ -54,6 +54,13 @@
                                         <button type="button" class="btn p-0 position-relative header-wishlist" onclick="location.href = '/carrito';">
                                             <i data-feather="shopping-cart"></i>
                                             <span class="position-absolute top-0 start-100 translate-middle badge" id="cantCart">0</span>
+                                        </button>
+                                    </div>
+                                </li>
+                                <li class="right-side">
+                                    <div class="header-badge p-0">
+                                        <button type="button" class="btn p-0 position-relative header-wishlist" onclick="location.href = '/chat';">
+                                            <i data-feather="message-square"></i>
                                         </button>
                                     </div>
                                 </li>
@@ -76,7 +83,7 @@
                                         <ul class="user-box-name">
                                             <li class="product-box-contain">
                                                 <i></i>
-                                                <a href="#">Mi perfil</a>
+                                                <a href="/perfil">Mi perfil</a>
                                             </li>
 
                                             <li class="product-box-contain">
@@ -106,7 +113,7 @@
         </li>
         {{#if user.admin}}
         <li class="mobile-category">
-            <a href="/productos">
+            <a href="/productos-admin">
                 <i class="iconly-Category icli js-link"></i>
                 <span>Productos</span>
             </a>
@@ -117,6 +124,13 @@
             <a href="/carrito">
                 <i class="iconly-Bag-2 icli fly-cate"></i>
                 <span>Carrito</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/carrito">
+                <i class="iconly-Chat icli fly-cate"></i>
+                <span>Chat</span>
             </a>
         </li>
     </ul>

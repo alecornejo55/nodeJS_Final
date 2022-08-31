@@ -19,12 +19,19 @@ const { initializePassport } = require('./src/config/passport.config');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
+// instancia socket io
+const { Server: HttpServer } = require('http');
+const { Server: IOServer } = require('socket.io');
+const httpServer = new HttpServer(app);
+const io = new IOServer(httpServer);
+
 const MongoStore = require('connect-mongo');
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const {  checkLogout } = require('./src/middlewares/auth');
 
-const { productRouterApi, cartRouterApi, publicRouter, userRouter } = require('./src/routes');
+const { productRouterApi, cartRouterApi, publicRouter, userRouter, chatRouter } = require('./src/routes');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +53,10 @@ app.use(session({
     rolling: true,
 }));
 
+// Chat
+const ChatService = require('./src/services/chat.service');
+const chat = new ChatService();
+
 // Passport config
 initializePassport();
 app.use(passport.initialize());
@@ -64,7 +75,25 @@ app.use(express.static(__dirname + "/src/public"));
 app.use('/api/product', productRouterApi);
 app.use('/api/cart', checkLogout, cartRouterApi);
 app.use('/api/user', userRouter);
+app.use('/api/chat', chatRouter);
 app.use('/', publicRouter);
+
+io.on('connection', async (socket) => {
+    // console.log('Un cliente se ha conectado', socket.id);
+    logger.info('Un cliente se ha conectado');
+
+    socket.on('new-message', async (data) => {
+        // console.log(data);
+        const nuevoM = await chat.save(data);
+        const messages = await chat.getAll();
+        io.sockets.emit('messages', messages);
+    });
+
+    // logger.info(socket.connected);
+    // const messages = await chat.getAll();
+    // socket.emit('messages', messages);
+});
+app.set('socketio', io);
 
 /** comodín */
 app.use('*', function(req, res){
@@ -77,7 +106,7 @@ app.use('*', function(req, res){
 });
 
 // Conexión al puerto
-const server = app.listen(config.PORT, () => {
+const server = httpServer.listen(config.PORT, () => {
     logger.info(`Servidor escuchando en el puerto ${server.address().port}`);
 });
 server.on('error', error => logger.info(`Error en el servidor: ${error}`));

@@ -1,7 +1,10 @@
 const ProductService = require('../services/product.service');
 const CartService = require('../services/cart.service');
+const ChatService = require('../services/chat.service');
 const product = new ProductService();
 const cart = new CartService();
+const chat = new ChatService();
+
 const hbsHelpers = require('../utils/hbs.util');
 
 const login = (req, res) => {
@@ -19,11 +22,12 @@ const getUser = (user) => {
         phone: user.phone,
         avatar: user.avatar,
         admin: user.admin,
-        cart: user.cart
+        cart: user.cart,
+        id: user.id
     }
     return data;
 }
-const dashboard = async (req, res) => {
+const products = async (req, res) => {
     const user = {
         name: req.user.name,
         username: req.user.username,
@@ -38,6 +42,7 @@ const dashboard = async (req, res) => {
     res.render('dashboard', { title: 'Dashboard', user, products });
 }
 const index = (req, res) => {
+    // res.render('index', { title: 'Index' });
     res.redirect('/login');
 }
 const logout = (req, res) => {
@@ -46,7 +51,7 @@ const logout = (req, res) => {
     });
     res.redirect('/login');
 }
-const products = async (req, res) => {
+const productsAdmin = async (req, res) => {
     const user = getUser(req.user);
     const products = await product.getAll();
     res.render('products', { title: 'Productos', user, products });
@@ -70,7 +75,6 @@ const cartInfo = async (req, res) => {
         helpers: hbsHelpers
     });
 }
-
 const orderSuccess = async (req, res) => {
     const logger = req.app.get('logger');
     const user = getUser(req.user);
@@ -84,7 +88,24 @@ const orderSuccess = async (req, res) => {
         helpers: hbsHelpers
     });
 }
+const userProfile = async (req, res) => {
+    const logger = req.app.get('logger');
+    const user = getUser(req.user);
+    res.render('userProfile', {
+        title: 'Mi perfil', 
+        user, 
+    });
+} 
+const chatBroadcast = async (req, res) => {
+    const logger = req.app.get('logger');
+    const user = getUser(req.user);
+    const io = req.app.get('socketio');
+    res.render('chatBroadcast', {
+        title: 'Chat general',
+        user
+    });
+}
 
 module.exports = {
-    login, signup, index, dashboard, logout, products, productDetail, cartInfo, orderSuccess,
+    login, signup, index, products, logout, productsAdmin, productDetail, cartInfo, orderSuccess, userProfile, chatBroadcast
 }

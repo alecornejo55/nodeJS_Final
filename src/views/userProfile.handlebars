@@ -1,0 +1,139 @@
+<!-- Loader Start -->
+{{> fullpage-loader }}
+<!-- Loader End -->
+
+<!-- Header Start -->
+{{> header }}
+<!-- Header End -->
+
+<!-- Breadcrumb Section Start -->
+{{> breadcrumb}}
+<!-- Breadcrumb Section End -->
+
+<!-- Cart Section Start -->
+<section class="cart-section section-b-space">
+    <div class="container-fluid-lg">
+        <div class="row g-sm-5 g-3">
+            <div class="col-xxl-3">
+                <div class="summery-box p-sticky">
+                    <div class="summery-header">
+                        <h3 id="formTitle">Datos de usuario</h3>
+                    </div>
+                    <div class="summery-contain">
+                        <div id="errMsg"></div>
+                        <div class="coupon-cart">
+                            <form class="row g-4" id="profileForm">
+                                <input type="hidden" name="id" id="id" value="">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Email" value="{{user.username}}" required>
+                                        <label for="username">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" value="{{user.name}}" required>
+                                    <label for="name">Nombre</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="Dirección" value="{{user.address}}" required>
+                                        <label for="address">Dirección</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
+                                        <input type="number" class="form-control" id="age" name="age" placeholder="Edad" value="{{user.age}}" required>
+                                        <label for="age">Edad</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
+                                        <input type="text" class="form-control input-element" id="phone" name="phone" placeholder="Celular" value="{{user.phone}}" required>
+                                        <label for="phone">Celular</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-floating theme-form-floating log-in-form">
+                                        <input type="file" class="form-control" id="avatar" name="avatar" placeholder="Avatar">
+                                        <label for="avatar">Avatar</label>
+                                    </div>
+                                </div>
+                                <div class="col-12"><hr class="m-0"></div>
+                                <div class="col-12 g-4">
+                                    <div class="row g-4">
+                                        <div class="col-12">
+                                            <h5 class="fw-bold">Cambiar contraseña</h5>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="form-floating theme-form-floating log-in-form">
+                                                <input type="password" class="form-control" id="password" name="password"
+                                                    placeholder="Contraseña">
+                                                <label for="password">Contraseña</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="form-floating theme-form-floating log-in-form">
+                                                <input type="password2" class="form-control" id="password2" name="password2"
+                                                    placeholder="Repetir contraseña">
+                                                <label for="password2">Repetir contraseña</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex flex-wrap">
+                                    <button id="btn-save" class="btn btn-animation fw-bold proceed-btn">Actualizar datos</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Cart Section End -->
+
+<!-- Footer Section Start -->
+{{> footer}}
+<!-- Footer Section End -->
+
+<!-- Tap to top start -->
+{{> back-to-top}}
+<!-- Tap to top end -->
+
+<!-- Bg overlay Start -->
+<div class="bg-overlay"></div>
+<!-- Bg overlay End -->
+<!-- latest jquery-->
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+
+<!-- jquery ui-->
+<script src="/assets/js/jquery-ui.min.js"></script>
+
+<!-- Bootstrap js-->
+<script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/bootstrap/bootstrap-notify.min.js"></script>
+<script src="/assets/js/bootstrap/popper.min.js"></script>
+
+<!-- feather icon js-->
+<script src="/assets/js/feather/feather.min.js"></script>
+<script src="/assets/js/feather/feather-icon.js"></script>
+
+<!-- Lazyload Js -->
+<script src="/assets/js/lazysizes.min.js"></script>
+
+<!-- Slick js-->
+<script src="/assets/js/slick/slick.js"></script>
+<script src="/assets/js/slick/custom_slick.js"></script>
+
+<!-- Quantity js -->
+<script src="/assets/js/quantity.js"></script>
+
+<!-- script js -->
+<script src="/assets/js/script.js"></script>
+<!-- Custom js -->
+<script src="/js/cleave.min.js"></script>
+<script src="/js/cleave-phone.ar.js"></script>
+<script src="/js/profile.js"></script>

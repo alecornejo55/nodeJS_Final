@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
     image: {type: String, required: true},
     price: {type: Number, required: true},
     stock: {type: Number, required: true},
+    category: {type: String, required: true},
     dateTime: {type: Date, required: true, default: Date.now},
 });
 productSchema.methods.toJSON = function(){

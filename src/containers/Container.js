@@ -29,6 +29,10 @@ class Container {
             return await this.model.create(data);
         } catch (error) {
             logger.warn(`Error al obtener: ${error.message}`);
+            return {
+                success: false,
+                message: error.message
+            }
         }
 	}
     async getById(id){

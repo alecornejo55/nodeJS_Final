@@ -3,3 +3,11 @@
 {"code":"EAUTH","command":"AUTH PLAIN","level":"error","response":"535 Authentication failed","responseCode":535}
 {"code":"EAUTH","command":"AUTH PLAIN","level":"error","response":"535 Authentication failed","responseCode":535}
 {"code":"EAUTH","command":"AUTH PLAIN","level":"error","response":"534-5.7.9 Application-specific password required. Learn more at\n534 5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 4-20020a9f2684000000b00385e2d7dd7csm2711484uay.11 - gsmtp","responseCode":534}
+2022-08-29T14:00:11.619Z [[31merror[39m]: [31mInvalid login: 534-5.7.9 Please log in with your web browser and then try again. Learn more at[39m
+[31m534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired j4-20020a056830014400b006391bdbb361sm5655832otp.31 - gsmtp[39m
+2022-08-29T18:27:14.949Z [[31merror[39m]: [31mInvalid login: 534-5.7.9 Please log in with your web browser and then try again. Learn more at[39m
+[31m534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired i19-20020a9d6253000000b00638ef9bb847sm5981798otk.79 - gsmtp[39m
+2022-08-29T18:42:52.299Z [[31merror[39m]: [31mInvalid login: 534-5.7.9 Please log in with your web browser and then try again. Learn more at[39m
+[31m534 5.7.9  https://support.google.com/mail/?p=WebLoginRequired c38-20020a05683034a600b0063715f7eef8sm6120914otu.38 - gsmtp[39m
+2022-08-29T18:52:58.463Z [[31merror[39m]: [31mInvalid login: 535-5.7.8 Username and Password not accepted. Learn more at[39m
+[31m535 5.7.8  https://support.google.com/mail/?p=BadCredentials r19-20020a4a9653000000b0044584998c9asm5461178ooi.38 - gsmtp[39m

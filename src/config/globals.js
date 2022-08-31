@@ -9,7 +9,7 @@ module.exports = {
 		persistence: process.env.PERSISTENCE || 'mongo',
 	},
 	nodemailer: {
-		service: process.env.NODEMAILER_SERVICE || 'gmail',
+		service: process.env.NODEMAILER_SERVICE || '',
 		host: process.env.NODEMAILER_HOST || 'smtp.gmail.com',
 		port: process.env.NODEMAILER_PORT || 587,
 		auth: {

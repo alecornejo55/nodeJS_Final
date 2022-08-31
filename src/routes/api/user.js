@@ -4,10 +4,10 @@ const router = Router();
 const passport = require('passport');
 
 const {
-    createUser, uploadAvatar, failedSignup, login, failedLogin
+    createUser, uploadAvatar, failedSignup, login, failedLogin, updateUser
 } = require('../../controllers/user.js');
 
-const { checkAdmin } = require('../../middlewares/auth.js');
+const { checkAdmin, checkLogout } = require('../../middlewares/auth.js');
 
 router.get('/failedSignup', failedSignup)
 router.get('/failedLogin', failedLogin)
@@ -22,5 +22,7 @@ router.post("/login", passport.authenticate('login', {
     failureRedirect: '/api/user/failedLogin',
     failureFlash: true
 }), login);
+
+router.put("/", checkLogout, uploadAvatar, updateUser);
 
 module.exports = router; 
